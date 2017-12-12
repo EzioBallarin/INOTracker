@@ -1,8 +1,23 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+html, body {
+    height: 100%;
+    width: 100%;
 }
 
-a {
-  color: #00B7FF;
+.inoheader {
+    border-bottom: 1px solid slategrey;
+}
+
+.inofooter {
+    height: 30px;
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    border-top: 1px solid slategrey;
+    padding-left: 40%;
+}
+
+#inobody {
+    height: 100%;
+    padding: 15px;
 }
