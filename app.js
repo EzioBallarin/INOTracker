@@ -11,6 +11,7 @@ var users = require('./routes/users');
 /* Project 2 additions */
 var about = require('./routes/about');
 var register = require('./routes/register_routes');
+var login = require('./routes/login_routes');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use('/users', users);
 // Associate appropriate router with given URL
 app.use('/about', about);
 app.use('/register', register);
+app.use('/login', login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
