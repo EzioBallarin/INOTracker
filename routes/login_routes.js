@@ -16,7 +16,10 @@ router.post('/', function(req, res) {
         } else {
             bcrypt.compare(req.body.inot_pass, result[0].password, function (bcryptErr, bcryptRes) {
                console.log("Comparing input and stored pass...", bcryptRes);
-                res.render('./index', {loginSuccess: bcryptRes});
+               if (bcryptRes) {
+                   req.session.user = req.body.inot_email;
+               }
+               res.render('./index', {loginSuccess: bcryptRes});
             });
         }
     });

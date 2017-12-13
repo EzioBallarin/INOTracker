@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -27,6 +28,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/* Project 2 Addition*/
+// initialize sessionto track logged-in users
+app.use(session({
+    key: 'user_sid',
+    secret: 'cs355ssu',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 600000
+    }
+}));
+/*
+app.use((req, res, next)=> {
+  if (req.cookies.user_sid && !req.session.user) {
+    res.clearCookie('user_sid');
+  }
+});
+*/
 app.use('/', index);
 app.use('/users', users);
 
