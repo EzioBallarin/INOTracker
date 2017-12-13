@@ -7,7 +7,10 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+
+/* Project 2 additions */
 var about = require('./routes/about');
+var register = require('./routes/register_routes');
 
 var app = express();
 
@@ -25,7 +28,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+
+/* Project 2 Additions */
+// Associate appropriate router with given URL
 app.use('/about', about);
+app.use('/register', register);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
