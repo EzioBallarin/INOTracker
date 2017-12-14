@@ -1,0 +1,29 @@
+<%- include('../includes/header');%>
+    <h2>My Visits</h2>
+    <% if (typeof noUser !== 'undefined') {%>
+        <div class="alert alert-warning" role="alert"><%= locals.message%></div>
+    <% } else { %>
+        <div class="container">
+            <% if (visits.length == 0) {%>
+                <div class="alert alert-warning" role="alert">No visits found</div>
+            <% } else { %>
+                <div class="row inot_result_header">
+                    <div class="col">Store #</div>
+                    <div class="col">Visit Date</div>
+                    <div class="col">Visit Reason</div>
+                    <div class="col">Meal</div>
+                    <div class="col">Note</div>
+                </div>
+                <% for (var i = 0; i < visits.length; i++) { %>
+                    <div class="row">
+                        <div class="col"><%= visits[i].store_num %></div>
+                        <div class="col"><%= visits[i].visit_date %></div>
+                        <div class="col"><%= visits[i].visit_reason%></div>
+                        <div class="col"><%= visits[i].visit_meal%></div>
+                        <div class="col"><%= visits[i].visit_note%></div>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+    <% } %>
+<%- include('../includes/footer');%>

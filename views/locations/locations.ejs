@@ -30,10 +30,20 @@
         $('#inot_city').empty();
         $('#inot_search_results').empty();
         var city_options = "";
-        var city_results = "<div class='row'><div class='col inot_result_header'>Street</div><div class='col inot_result_header'>City</div><div class='col inot_result_header'>State</div></div>";
+        var city_results = "<div class='row'>" +
+            "<div class='col inot_result_header'>Store #</div>" +
+            "<div class='col inot_result_header'>Street</div>" +
+            "<div class='col inot_result_header'>City</div>" +
+            "<div class='col inot_result_header'>State</div>" +
+            "</div>";
         for (var i = 0; i < cities.length; i++) {
             city_options += "<option value='" + cities[i].city + "' state='" + cities[i].state +"'>" + cities[i].city +"</option>";
-            city_results += "<div class='row'><div class='col'>" + cities[i].street + "</div><div class='col'>" + cities[i].city + "</div><div class='col'>" + cities[i].state + "</div></div>";
+            city_results += "<div class='row inot_result' city='" + cities[i].city +"' state='" + cities[i].state +"'>" +
+                    "<div class='col'>" + cities[i].store_num + "</div>" +
+                    "<div class='col'>" + cities[i].street + "</div>" +
+                    "<div class='col'>" + cities[i].city + "</div>" +
+                    "<div class='col'>" + cities[i].state + "</div>" +
+                "</div>";
         }
         $('#inot_city').append(city_options);
         if (!($('#inot_city_search').is(':visible')))
@@ -65,7 +75,15 @@
 
         $('#inot_city_search').submit(function(e) {
             e.preventDefault();
+            $('#inot_city > option:selected').each(function(){
+                $('div.inot_result').attr('hidden', true);
+                $('#inot_search_results > div.row[city="'+ $(this).val() + '"][state="'+ $(this).attr('state') +'"]').each(function(){
+                    $(this).attr('hidden', false);
+                });
+            });
+            /*
             var fd = [];
+
             $('#inot_city > option:selected').each(function() {
                 fd.push({
                     name: 'inot_city',
@@ -90,7 +108,7 @@
                     }
                 }
             });
-
+            */
         });
 
     });

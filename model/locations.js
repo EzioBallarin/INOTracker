@@ -10,9 +10,16 @@ exports.getLocationStates =  function (callback) {
     });
 };
 
+exports.getLocationCitiesInState = function(states, callback) {
+    var query = "CALL store_cities(?)";
+    connection.query(query, [states], function(err, result){
+
+    });
+};
+
 exports.getLocationsInStates = function(params, callback) {
 
-    var query = "SELECT a.* FROM p1_address a WHERE state IN (?) GROUP BY a.city"
+    var query = "SELECT a.* FROM p1_address a WHERE state IN (?) ORDER BY a.store_num ASC"
     var queryData = [];
 
     if (params.constructor === Array) {

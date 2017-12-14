@@ -19,8 +19,8 @@ router.post('/', function(req, res) {
         } else {
             bcrypt.compare(req.body.inot_pass, result[0].password, function (bcryptErr, bcryptRes) {
                 if (bcryptRes == true) {
-                   req.session.user = result[0].first_name;
-                   global.setSessionLocal(req, res);
+                    req.session.user = {first_name: result[0].first_name, user_id: result[0].email};
+                    global.setSessionLocal(req, res);
                }
                res.render('./index', {loginSuccess: bcryptRes});
             });
