@@ -21,6 +21,10 @@ html, body {
     padding-bottom: 0px !important;
 }
 
+.inot_result_header {
+    border-bottom: 1px solid slategrey;
+}
+
 #inocontainer {
     min-height: 100%;
     position: relative;

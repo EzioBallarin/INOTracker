@@ -1,0 +1,98 @@
+<%- include('../includes/header');%>
+<div class="container">
+    <div class="row">
+        <div class="form-group col">
+            <form action="locations/state" method="post" id="inot_state_search">
+                <label for="inot_state">Select a state</label>
+                <select class="form-control form-inline" id="inot_state" name="inot_state" multiple="multiple">
+                    <% for (var i = 0; i < locations.length; i++) {%>
+                        <option value="<%= locations[i].state %>"><%= locations[i].state %></option>
+                    <% } %>
+                </select>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="form-group col">
+            <form action="locations/cities" method="post" id="inot_city_search" hidden>
+                <label for="inot_city">Select a city</label>
+                <select class="form-control form-inline" id="inot_city" name="inot_city" multiple="multiple">
+                </select>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="inot_search_results" class="container">
+
+</div>
+<script type="text/javascript">
+    function renderCities(cities) {
+        $('#inot_city').empty();
+        $('#inot_search_results').empty();
+        var city_options = "";
+        var city_results = "<div class='row'><div class='col inot_result_header'>Street</div><div class='col inot_result_header'>City</div><div class='col inot_result_header'>State</div></div>";
+        for (var i = 0; i < cities.length; i++) {
+            city_options += "<option value='" + cities[i].city + "' state='" + cities[i].state +"'>" + cities[i].city +"</option>";
+            city_results += "<div class='row'><div class='col'>" + cities[i].street + "</div><div class='col'>" + cities[i].city + "</div><div class='col'>" + cities[i].state + "</div></div>";
+        }
+        $('#inot_city').append(city_options);
+        if (!($('#inot_city_search').is(':visible')))
+            $('#inot_city_search').prop('hidden', false);
+        $('#inot_search_results').append(city_results);
+    }
+
+    $(document).ready(function () {
+        $("#inot_state_search").submit(function (e) {
+            e.preventDefault();
+            var fd = $(this).serializeArray();
+            console.log(fd);
+            $.ajax({
+                url: '/locations/state',
+                data: fd,
+                type: 'POST',
+
+                // Create the next form with a selection of states in the above city
+                success: function(data) {
+                    renderCities(data);
+                },
+                statusCode: {
+                    500: function(err) {
+                        document.write(err);
+                    }
+                }
+            });
+        });
+
+        $('#inot_city_search').submit(function(e) {
+            e.preventDefault();
+            var fd = [];
+            $('#inot_city > option:selected').each(function() {
+                fd.push({
+                    name: 'inot_city',
+                    value: $(this).val()
+                });
+                fd.push({
+                    name: 'inot_state',
+                    value: $(this).attr('state')
+                })
+            });
+            console.log("city array:\n", fd);
+            $.ajax({
+                url: '/locations/city',
+                data: fd,
+                type: 'POST',
+                success: function(data) {
+                    console.log(data);
+                },
+                statusCode: {
+                    500: function(err) {
+                        document.write(err);
+                    }
+                }
+            });
+
+        });
+
+    });
+</script>
+<%- include('../includes/footer');%>
