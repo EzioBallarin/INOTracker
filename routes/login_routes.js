@@ -18,8 +18,8 @@ router.post('/', function(req, res) {
             res.render('./dberror', {error: err});
         } else {
             bcrypt.compare(req.body.inot_pass, result[0].password, function (bcryptErr, bcryptRes) {
-               if (bcryptRes == true) {
-                   req.session.user = req.body.inot_email;
+                if (bcryptRes == true) {
+                   req.session.user = result[0].first_name;
                    global.setSessionLocal(req, res);
                }
                res.render('./index', {loginSuccess: bcryptRes});

@@ -12,17 +12,8 @@ html, body {
 }
 
 .inofooter {
-    height: 30px;
     width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    border-top: 1px solid slategrey;
-    padding-left: 40%;
-}
-
-.inofooter-nav {
-    padding-top: 3px !important;
+    padding-left: 50%;
 }
 
 .inofooter-nav li.nav-item .nav-link{
@@ -30,6 +21,22 @@ html, body {
     padding-bottom: 0px !important;
 }
 
+#inocontainer {
+    min-height: 100%;
+    position: relative;
+}
+
 #inobody {
-    padding: 15px;
+    padding: 15px 15px 31px 15px;
+}
+
+#inot_db_images {
+    margin-bottom: 15px;
+}
+
+#inofooter {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid slategrey;
 }
