@@ -13,6 +13,7 @@ var users = require('./routes/users');
 var about = require('./routes/about');
 var register = require('./routes/register_routes');
 var login = require('./routes/login_routes');
+var logout = require('./routes/logout_routes');
 
 var app = express();
 
@@ -39,13 +40,40 @@ app.use(session({
       expires: 600000
     }
 }));
-/*
-app.use((req, res, next)=> {
-  if (req.cookies.user_sid && !req.session.user) {
-    res.clearCookie('user_sid');
-  }
+
+app.use( (req, res, next) => {
+    if (req.cookies.user_sid && !req.session.user) {
+        res.clearCookie('user_sid');
+    }
+    next();
 });
-*/
+
+app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+});
+
+sessionChecker = function (req, res, msg, next) {
+    if (req.session.user && req.cookies.user_sid) {
+        res.render('index', {message: msg});
+    } else {
+        next();
+    }
+};
+
+setSessionLocal = function(req, res) {
+    res.locals.user = req.session.user;
+};
+
+endSession = function(req, res) {
+    if (req.session.user && req.cookies.user_sid) {
+        res.clearCookie('user_sid');
+        req.session.user = undefined;
+    }
+    setSessionLocal(req, res);
+    res.render('index', {logoutSuccess: true});
+};
+
 app.use('/', index);
 app.use('/users', users);
 
@@ -54,6 +82,7 @@ app.use('/users', users);
 app.use('/about', about);
 app.use('/register', register);
 app.use('/login', login);
+app.use('/logout', logout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

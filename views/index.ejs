@@ -5,5 +5,11 @@
 <% if (locals.loginSuccess) {%>
     <div class="alert alert-success" role="alert">Successfully logged in.</div>
 <% } %>
+<% if (locals.logoutSuccess) {%>
+    <div class="alert alert-success" role="alert">Successfully logged out.</div>
+<% } %>
+<% if (locals.message) {%>
+    <div class="alert alert-warning" role="alert"><%= locals.message%></div>
+<% }%>
 <h1>INO Tracker</h1>
 <%- include("./includes/footer.ejs"); %>

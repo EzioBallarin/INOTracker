@@ -5,7 +5,10 @@ var login = require('../model/login.js');
 
 
 router.get('/', function (req, res) {
-    res.render('login/login');
+    var msg = "You are already logged in.";
+    global.sessionChecker(req, res, msg, function () {
+        res.render('login/login');
+    });
 });
 
 router.post('/', function(req, res) {
@@ -15,9 +18,9 @@ router.post('/', function(req, res) {
             res.render('./dberror', {error: err});
         } else {
             bcrypt.compare(req.body.inot_pass, result[0].password, function (bcryptErr, bcryptRes) {
-               console.log("Comparing input and stored pass...", bcryptRes);
-               if (bcryptRes) {
+               if (bcryptRes == true) {
                    req.session.user = req.body.inot_email;
+                   global.setSessionLocal(req, res);
                }
                res.render('./index', {loginSuccess: bcryptRes});
             });

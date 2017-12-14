@@ -4,8 +4,10 @@ var router = express.Router();
 var register = require('../model/register.js');
 
 router.get('/', function(req, res){
-    console.log("registering...");
-    res.render('register/register');
+    var msg = "Cannot register when already logged in."
+    global.sessionChecker(req, res, msg, function () {
+        res.render('register/register');
+    });
 });
 
 router.post('/new', function (req, res) {
@@ -17,7 +19,6 @@ router.post('/new', function (req, res) {
                 console.log(err);
                 res.render('./dberror', {error: err});
             } else {
-                console.log(bcryptedPass);
                 res.render('./index', {newAccount: true});
             }
         });
