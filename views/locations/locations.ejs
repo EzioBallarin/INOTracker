@@ -36,17 +36,20 @@
             "<div class='col inot_result_header'>City</div>" +
             "<div class='col inot_result_header'>State</div>" +
             "</div>";
+        var already_created_cities = {};
         for (var i = 0; i < cities.length; i++) {
-            city_options += "<option value='" + cities[i].city + "' state='" + cities[i].state +"'>" + cities[i].city +"</option>";
+            if (!already_created_cities.hasOwnProperty(''+cities[i].city+'')) {
+                city_options += "<option value='" + cities[i].city + "' state='" + cities[i].state + "'>" + cities[i].city + "</option>";
+            }
             city_results += "<div class='row inot_result' city='" + cities[i].city +"' state='" + cities[i].state +"'>" +
                     "<div class='col'>" + cities[i].store_num + "</div>" +
                     "<div class='col'>" + cities[i].street + "</div>" +
                     "<div class='col'>" + cities[i].city + "</div>" +
                     "<div class='col'>" + cities[i].state + "</div>" +
                 "</div>";
+            already_created_cities[''+cities[i].city+''] = true;
         }
         $('#inot_city').append(city_options);
-
         $('#inot_search_results').append(city_results);
     }
 
@@ -74,12 +77,17 @@
 
         $('#inot_city_search').submit(function(e) {
             e.preventDefault();
+            var cities = [];
             $('#inot_city > option:selected').each(function(){
                 $('div.inot_result').attr('hidden', true);
                 $('#inot_search_results > div.row[city="'+ $(this).val() + '"][state="'+ $(this).attr('state') +'"]').each(function(){
-                    $(this).attr('hidden', false);
+                    cities.push($(this));
                 });
             });
+            for (var i = 0; i < cities.length; i++) {
+                cities[i].prop('hidden', false);
+            }
+            console.log(cities);
             /*
             var fd = [];
 
