@@ -40,11 +40,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
-            <% if (typeof user !== 'undefined') {%>
-                <li class="nav-item">
-                    <a class="nav-link" href="/visits">My Visits</a>
-                </li>
-            <% } %>
             <li class="nav-item">
                 <a class="nav-link" href="/locations">Locations</a>
             </li>
@@ -56,6 +51,9 @@
                     <a class="nav-link" href="/register/">Register</a>
                 </li>
             <% } else { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/visits">My Visits</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout/">Logout</a>
                 </li>

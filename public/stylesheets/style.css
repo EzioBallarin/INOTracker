@@ -4,7 +4,11 @@ html, body {
 }
 
 .inofooter, .inoheader {
-    background-color: #d1d1d1 !important;
+    background-color: red !important;
+}
+
+.inofooter *, .inoheader * {
+    color: white !important;
 }
 
 .inoheader {
@@ -44,3 +48,4 @@ html, body {
     width: 100%;
     border-top: 1px solid slategrey;
 }
+
