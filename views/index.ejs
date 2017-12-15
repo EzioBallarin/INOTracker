@@ -4,6 +4,8 @@
 <% }%>
 <% if (locals.loginSuccess) {%>
     <div class="alert alert-success" role="alert">Successfully logged in.</div>
+<% } else if (locals.loginSuccess = false) {%>
+    <div class="alert alert-danger" role="alert">Failed to login. Incorrect email or password.</div>
 <% } %>
 <% if (locals.logoutSuccess) {%>
     <div class="alert alert-success" role="alert">Successfully logged out.</div>

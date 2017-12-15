@@ -1,9 +1,9 @@
 <%- include('../includes/header');%>
-    <h2>My Visits</h2>
     <% if (typeof noUser !== 'undefined') {%>
         <div class="alert alert-warning" role="alert"><%= locals.message%></div>
     <% } else { %>
         <div class="container">
+            <h2>My Visits</h2>
             <% if (visits.length == 0) {%>
                 <div class="alert alert-warning" role="alert">No visits found</div>
             <% } else { %>
@@ -13,6 +13,7 @@
                     <div class="col">Visit Reason</div>
                     <div class="col">Meal</div>
                     <div class="col">Note</div>
+                    <div class="col-auto"></div>
                 </div>
                 <% for (var i = 0; i < visits.length; i++) { %>
                     <div class="row">
@@ -21,9 +22,32 @@
                         <div class="col"><%= visits[i].visit_reason%></div>
                         <div class="col"><%= visits[i].visit_meal%></div>
                         <div class="col"><%= visits[i].visit_note%></div>
+                        <div class="col-auto"><button type="button" class="btn btn-danger">X</button></div>
                     </div>
                 <% } %>
+                <form class="row" id="inot_new_visit" action="/visits/new" method="post">
+                        <div class="col form-group">
+                            <input name="inot_new_visit_store_num" class="form-control" value="1" type="number" min="1" max="328"/>
+                        </div>
+                        <div class="col form-group">
+                            <input name="inot_new_visit_timestamp" class="form-control" type="date"/>
+                        </div>
+                        <div class="col form-group">
+                            <input name="inot_new_visit_reason" class="form-control" type="text"/>
+                        </div>
+                        <div class="col form-group">
+                            <input name="inot_new_visit_meal" class="form-control" type="text"/>
+                        </div>
+                        <div class="col form-group">
+                            <input name="inot_new_visit_note" class="form-control" type="text"/>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-success">+</button>
+                        </div>
+
+                </form>
             <% } %>
         </div>
+
     <% } %>
 <%- include('../includes/footer');%>
