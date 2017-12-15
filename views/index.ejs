@@ -1,4 +1,5 @@
 <%- include("./includes/header.ejs"); %>
+
 <% if (locals.newAccount) {%>
     <div class="alert alert-success" role="alert">Successfully created account.</div>
 <% }%>
@@ -13,6 +14,19 @@
 <% if (locals.message) {%>
     <div class="alert alert-warning" role="alert"><%= locals.message%></div>
 <% }%>
-<h1>INO Tracker</h1>
-</div>
+<h1>Home</h1>
+<% if (locals.images) {%>
+    <div class="container">
+        <div class="row">
+        <% for (var i = 0; i < locals.images.length; i++) {%>
+                <div class="col">
+                    <div class="thumbnail">
+                        <image class="thumbnail" src="<%= locals.images[i].image_link %>"></image>
+                    </div>
+                </div>
+        <% } %>
+        </div>
+    </div>
+<% } %>
+
 <%- include("./includes/footer.ejs"); %>

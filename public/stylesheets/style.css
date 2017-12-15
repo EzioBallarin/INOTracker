@@ -49,3 +49,7 @@ html, body {
     border-top: 1px solid slategrey;
 }
 
+.thumbnail {
+    height: 150px !important;
+    width: 200px !important;
+}
